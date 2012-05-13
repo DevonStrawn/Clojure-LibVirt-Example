@@ -1,0 +1,47 @@
+
+buildscript
+{
+    repositories
+    {
+        mavenRepo name: 'clojars', url: 'http://clojars.org/repo'
+    }
+    dependencies
+    {
+        classpath 'clojuresque:clojuresque:1.4.4'
+    }
+}
+
+group = 'example.group'
+version = '1.0.0'
+
+apply plugin: 'clojure'
+
+warnOnReflection = true
+aotCompile = true
+
+repositories
+{
+    mavenCentral()
+    clojarsRepo()
+//    libVirt name: 'LibVirt', url: 'http://www.libvirt.org/maven2/'
+}
+
+dependencies
+{
+    compile 'org.clojure:clojure:1.2.1'
+    compile 'org.libvirt:libvirt:0.4.7'
+    compile 'net.java.dev.jna:jna:3.3.0'
+}
+
+
+// NOTE: You *must* enable AOT (Ahead-of-Time) compilation in order to use a Clojure class as the main class
+aotCompile = true
+//aotCompile = false
+
+jar
+{
+    manifest.attributes("Main-Class": "foo")
+}
+
+apply plugin: 'application'
+mainClassName = "foo"
